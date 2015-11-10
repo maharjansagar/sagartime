@@ -1,0 +1,45 @@
+md-content(layout='')
+  toolbar
+.etimesheets(layout='row')
+      span(flex='')
+      div(layout='column')
+        h1 Add Timesheet
+        md-button.md-raised.md-primary(ng-click='save()') Save
+        table
+          tr
+            th
+              a(href='#', ng-click="sortType = 'project'; sortReverse = !sortReverse") Project
+            th
+              a(href='#', ng-click="sortType = 'taken'; sortReverse = !sortReverse") Time taken
+            th
+              a(href='#', ng-click="sortType = 'detail'; sortReverse = !sortReverse") Description
+            th Operations
+          tr
+            td
+              md-input-container
+                md-select(ng-model='newEtimesheet.name', placeholder='Project Title')
+                  md-option(ng-value="project.name", ng-repeat='project in projects', ng-click="set(project.name)")
+                    | {{project.name}}
+            td 
+              md-input-container
+                input(type='number', ng-model='newEtimesheet.time')
+            td
+              md-input-container
+                textarea(ng-model='newEtimesheet.details')
+            td
+               button.tbutton(ng-click="addRow()") Add New Row
+          tr(ng-repeat='table in tables')
+            td
+              md-input-container
+                md-select(ng-model='table.pname', placeholder='Project Title')
+                  md-option(ng-value="project.name", ng-repeat='project in projects', ng-click="set(project.name)")
+                    | {{project.name}}
+            td 
+              md-input-container
+                input(type='number', ng-model='table.ptime')
+            td
+              md-input-container
+                input(type='textarea', ng-model='table.pdetails')
+            td
+              button.tbutton(ng-click='tables.splice($index, 1)') Remove
+      span(flex='')

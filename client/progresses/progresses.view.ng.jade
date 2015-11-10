@@ -1,0 +1,29 @@
+md-content(layout='')
+  toolbar
+.Progresses(layout='row')
+      span(flex='')
+      div(layout='column')
+        h1 Work Flow
+        table
+          tr
+            th S.N
+            th
+              a(href='#', ng-click="sortType = 'project'; sortReverse = !sortReverse") User
+            th
+              a(href='#', ng-click="sortType = 'project'; sortReverse = !sortReverse") Project
+            th
+              a(href='#', ng-click="sortType = 'taken'; sortReverse = !sortReverse") Timetaken
+            th
+              a(href='#', ng-click="sortType = 'date'; sortReverse = !sortReverse") Date
+            th
+              a(href='#', ng-click="sortType = 'detail'; sortReverse = !sortReverse") Description
+          tr(ng-repeat ='etimesheet in etimesheets |  orderBy:sortType:sortReverse')
+            td {{$index + 1}}
+            td {{etimesheet.user}}
+            td {{etimesheet.pname}}
+            td {{etimesheet.ptime}}
+            td {{etimesheet.createdDate}}
+            td {{etimesheet.pdetails}}
+            td
+              button(ng-click='remove(department._id)') Remove
+      span(flex='')

@@ -1,0 +1,24 @@
+.usermanage-detail(layout='row')
+  span(flex='')
+  div(layout='column')
+    h1 Here are the details of the usermanage
+    form.md-whiteframe-z1(name='form', ng-submit='save()', layout-padding='')
+      div(layout='row', layout-align='space-around left')
+        label Name
+          md-input-container
+            input(type='text', ng-model='fname', placeholder='First Name', aria-label='Name')
+          md-input-container
+            input(type='text', ng-model='mname', placeholder='Middle Name', aria-label='Name')
+          md-input-container
+            input(type='text', ng-model='lname', placeholder='Last Name', aria-label='Name')
+      md-input-container
+        label Contact
+        input(type='text' ng-model='mcontact', placeholder='Mobile Number')
+      md-input-container
+        label Email
+        input(type='email' ng-model='email', placeholder='Email')
+      div(layout='row')
+        input.md-button(type='submit', value='Save')
+        md-button(ng-click='reset()') Reset
+        md-button(ng-href='/usermanages') Cancel
+  span(flex='')

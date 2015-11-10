@@ -1,0 +1,40 @@
+md-content(layout='row')
+      span(flex='')
+      md-whiteframe(layout='column', flex='50')
+        div(layout='row', layout-align='space-around center')
+        .md-warn(ng-show='error')
+          small {{ error }}
+        form(layout='column')
+          div(layout='row', layout-align='space-around left')
+            label Name
+            md-input-container
+              input(type='text', ng-model='profile[0].fname', placeholder='First Name', aria-label='Name')
+            md-input-container
+              input(type='text', ng-model='profile[0].mname', placeholder='Middle Name', aria-label='Name')
+            md-input-container
+              input(type='text', ng-model='profile[0].lname', placeholder='Last Name', aria-label='Name')
+          div(layout='row', layout-align='space-around left')
+            label Contact
+            md-input-container
+              input(type='text', ng-model='profile[0].mcontact', placeholder='Mobile', aria-label='Contact')
+            md-input-container
+              input(type='text', ng-model='profile[0].hcontact', placeholder='Home', aria-label='Contact')
+          div(layout='row', layout-align='space-around left')
+            label Address
+            md-input-container
+              input(type='text', ng-model='profile[0].address', placeholder='Enter Address', aria-label='Address')
+          div(layout='row', layout-align='space-around left')
+            label Email
+            md-input-container
+              input(type='email', ng-model='email', placeholder='Primary Email', aria-label='Email')
+            md-input-container
+              input(type='email', ng-model='profile[0].semail', placeholder='Secondary Email', aria-label='Email')
+          div(layout='row', layout-align='space-around left')  
+            label Password
+            md-input-container            
+              input(type='password', ng-model='password', placeholder='Enter Password', aria-label='password')
+            md-input-container            
+              input(type='password', ng-model='repassword', placeholder='Enter Password', aria-label='password')
+        div(layout='row', layout-align='space-around left')
+          md-button(ng-click='register()') Register
+      span(flex='')

@@ -1,0 +1,60 @@
+md-content(layout='')
+  toolbar
+.organizations-list(layout='row')
+  span(flex='')
+  div(layout='column' flex='50')
+    h1 Organizations
+    form.md-whiteframe-z1(ng-submit='save()', name='form', novalidate='', layout-padding='')
+      p Add a organization
+      md-input-container
+        label Name
+        input(ng-model='newOrganization.name', placeholder='Name')
+      md-input-container
+        label Address
+        input(ng-model='newOrganization.address', placeholder='Address')
+      md-input-container
+        label Contact
+        input(ng-model='newOrganization.contact', placeholder='Contact')
+      md-input-container
+        label Email Address
+        input(ng-model='newOrganization.email', placeholder='Email')
+      input.md-button(type='submit', value='Add')
+    div(layout='row', layout-padding='')
+      md-input-container(flex='65')
+        label Search
+        input(type='search', ng-model='search', placeholder='Search')
+      md-select(ng-model='orderProperty', flex='35')
+        md-option(value='1') Ascending
+        md-option(value='-1') Descending
+
+    table
+      tr
+        th S.N
+        th
+          a(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Name
+        th
+          a(href='#', ng-click="sortType = 'address'; sortReverse = !sortReverse") Address
+        th
+          a(href='#', ng-click="sortType = 'contact'; sortReverse = !sortReverse") Contact
+        th
+          a(href='#', ng-click="sortType = 'email'; sortReverse = !sortReverse") Email
+      tr(dir-paginate='organization in organizations | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='organizationsCount.count',  current-page='page')
+        td {{$index + 1}}
+        td {{organization.name}}
+        td {{organization.address}}
+        td {{organization.contact}}
+        td {{organization.email}}
+        td
+          a(href='/organizations/{{organization._id}}')  Edit 
+          button(ng-click='remove(organization._id)') Remove
+
+
+    //- ul
+    //-   li(dir-paginate='organization in organizations | itemsPerPage: perPage', total-items='organizationsCount.count',  current-page='page')
+    //-     p 
+    //-       a(href='/organizations/{{organization._id}}') {{ organization.name }}
+    //-       button(ng-click='remove(organization)') &times;
+    dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
+
+    p Total number of organizations: {{organizationsCount.count}}
+  span(flex='')

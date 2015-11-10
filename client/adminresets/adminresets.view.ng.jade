@@ -1,0 +1,15 @@
+md-content(layout='')
+  toolbar
+.admin-reset(layout='row')
+  span(flex='')
+  div(layout='column')
+    h1 Here are the details of the user
+    form.md-whiteframe-z1(name='form', ng-submit='resetpw()', layout-padding='')
+      md-input-container
+        label Email
+        input(ng-model='email', placeholder='Email')
+      md-input-container
+        label Password
+        input(ng-model='newPlaintextPassword', placeholder='New Password')
+      input.md-button(type='submit', value='reset')
+  span(flex='')

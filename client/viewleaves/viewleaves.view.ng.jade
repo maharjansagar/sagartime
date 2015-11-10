@@ -1,0 +1,29 @@
+md-content(layout='')
+  toolbar
+.viewleaves(layout='row')
+      span(flex='')
+      div(layout='column')
+        h1 Leaves Request Management
+        table
+          tr
+            th S.N
+            th
+              a(href='#', ng-click="sortType = 'email'; sortReverse = !sortReverse") Email
+            th
+              a(href='#', ng-click="sortType = 'sdate'; sortReverse = !sortReverse") From
+            th
+              a(href='#', ng-click="sortType = 'edate'; sortReverse = !sortReverse") To
+            th
+              a(href='#', ng-click="sortType = 'reason'; sortReverse = !sortReverse") Reason
+          tr(ng-repeat ='addleave in addleaves |  orderBy:sortType:sortReverse')
+            td {{$index + 1}}
+            td
+              | {{addleave.user}}
+            td {{addleave.sdate}}
+            td {{addleave.edate}}
+            td {{addleave.reason}}
+            td 
+              button(ng-click='approve(addleave._id)')  Approve
+              button(ng-click='remove(addleave._id)') Remove
+
+      span(flex='')
