@@ -8,13 +8,13 @@ angular.module 'etimesApp'
     templateUrl: 'client/logins/logins.view.html'
     controller: 'LoginsCtrl'
   .state 'logout',
-  url: '/logout'
-  resolve: 'logout': ['$meteor', '$state'
-   ($meteor, $state) ->
-    $meteor.logout().then (->
-     $state.go 'logins'
-     return
-    ), (err) ->
-     console.log 'logout error - ', err
-     return
-   ]
+    url: '/logout'
+    resolve: 'logout': ['$meteor', '$state'
+     ($meteor, $state) ->
+      $meteor.logout().then (->
+       $state.go 'logins'
+       return
+      ), (err) ->
+       console.log 'logout error - ', err
+       return
+     ]

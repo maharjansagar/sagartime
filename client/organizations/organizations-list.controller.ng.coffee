@@ -4,7 +4,7 @@ angular.module 'etimesApp'
 .controller 'OrganizationsListCtrl', ($scope, $meteor) ->
   $scope.page = 1
   $scope.perPage = 4
-  $scope.sort = {name : 1}
+  $scope.sort = {name : -1}
   $scope.orderProperty = '1'
   
   $scope.organizations = $scope.$meteorCollection () ->

@@ -3,18 +3,43 @@ md-content(layout='')
 .project-detail(layout='row')
   span(flex='')
   div(layout='column')
-    h1 Here are the details of the project
-    form.md-whiteframe-z1(name='form', ng-submit='save()', layout-padding='')
+    h1 Projects
+    form.md-whiteframe-z1(ng-submit='save()', name='form' id='form', novalidate='', layout-padding='')
+      p Add a project
       md-input-container
-        md-input-container
-        label Description
-        input(ng-model='project.description', placeholder='Description')
-      div(layout='row', layout-align='space-around center')
-        div Start Date
-        md-datepicker(ng-model='project.sdate', md-placeholder='From')
-        md-datepicker(ng-model='project.edate', md-placeholder='To')
-      div(layout='row')
-        input.md-button(type='submit', value='Save')
-        md-button(ng-click='reset()') Reset
-        md-button(ng-href='/projects') Cancel
+        label Name
+        input(ng-model='project.name', placeholder='name')
+      md-input-container
+        label Name
+        textarea(ng-model='project.description', placeholder='description')
+      div(layout='row', layout-align='space-around center') 
+        label Start Date
+        
+          md-datepicker(ng-model='project.sdate', md-placeholder='From')
+        label End Date
+        
+          md-datepicker(ng-model='project.edate', md-placeholder='To')
+      br
+      br  
+      br
+      ul
+        | Members
+        li(ng-repeat='user in users')
+          input(type='checkbox', checklist-model='members', checklist-value='user._id', ng-disabled="shouldBeDisabled(user.deleted)", ng-click="toggle(user._id, member)", ng-checked="exists(user._id, member)")
+          |  {{user.profile[0].fname}} {{user.emails[0].address}}
+      label Parent
+        md-select(ng-model='project.parent', placeholder='Select Parent project if any')
+         md-option(ng-value='' )
+         md-option(ng-value='project._id', ng-repeat='project in projects ') {{ project.name }}
+
+        input.md-button(type='submit', value='Add')
+      div(layout='row', layout-padding='')
+        md-input-container(flex='65')
+          label Search
+          input(type='search', ng-model='search', placeholder='Search')
+        md-select(ng-model='orderProperty', flex='35')
+          md-option(value='1') Ascending
+          md-option(value='-1') Descending
+
+      
   span(flex='')

@@ -12,9 +12,15 @@ angular.module 'etimesApp'
   $meteor.autorun $scope, () ->
     $scope.$meteorSubscribe('etimesheets')
 
-  $scope.projects = $scope.$meteorCollection Projects
+  $scope.projects = $scope.$meteorCollection () ->
+    Projects.find { $and: [{"deleted":0},{"member":Meteor.userId()}]}, {sort:$scope.getReactively('sort')}
   $meteor.autorun $scope, () ->
-    $scope.$meteorSubscribe('projects')
+    $scope.$meteorSubscribe('projects', {
+      skip: parseInt(($scope.getReactively('page') - 1) * $scope.getReactively('perPage'))
+      sort: $scope.getReactively('sort')
+    }, $scope.getReactively('search')).then () ->
+      $scope.projectsCount = $scope.$meteorObject Counts, 'numberOfProjects', false
+
 
   $scope.users = $scope.$meteorCollection () ->
     Meteor.users.find {"profile.deleted":"0"}, {sort:$scope.getReactively('sort')}
