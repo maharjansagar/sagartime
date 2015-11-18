@@ -12,6 +12,7 @@ angular.module 'etimesApp'
     Designations.find {'deleted':0}, {sort:$scope.getReactively('sort')}
   $meteor.autorun $scope, () ->
     $scope.$meteorSubscribe('designations', {
+      limit: parseInt($scope.getReactively('perPage'))
       skip: parseInt(($scope.getReactively('page') - 1) * $scope.getReactively('perPage'))
       sort: $scope.getReactively('sort')
     }, $scope.getReactively('search')).then () ->

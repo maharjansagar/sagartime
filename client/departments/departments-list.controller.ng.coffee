@@ -12,6 +12,7 @@ angular.module 'etimesApp'
 
   $meteor.autorun $scope, () ->
     $scope.$meteorSubscribe('departments', {
+      limit: parseInt($scope.getReactively('perPage'))
       skip: parseInt(($scope.getReactively('page') - 1) * $scope.getReactively('perPage'))
       sort: $scope.getReactively('sort')
     }, $scope.getReactively('search')).then () ->
