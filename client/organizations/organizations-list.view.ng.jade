@@ -46,7 +46,7 @@ md-content(layout='')
         td {{organization.email}}
         td
           a(href='/organizations/{{organization._id}}')  Edit 
-          button(ng-click='remove(organization._id)') Remove
+          md-button.md-primary.md-raised(ng-click="showConfirm($event, organization._id)", flex-md='100', flex-gt-md='auto') Remove
 
 
     //- ul
@@ -57,4 +57,9 @@ md-content(layout='')
     dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
 
     p Total number of organizations: {{organizationsCount.count}}
+
+    div(ng-if='status')
+      br
+      b.md-padding(layout='row', layout-align='center center')
+        | {{status}}
   span(flex='')
