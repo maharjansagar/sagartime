@@ -13,7 +13,7 @@ angular.module 'etimesApp'
     resolve:
       currentUser: ['$meteor','$state', ($meteor,$state) ->
         $meteor.requireValidUser((user)->
-          if(user._id=="BhwRmjwMgsr7FtSSX") 
+          if(user.profile[0].role == "admin") 
              return $state.go 'admindashs'
            return $state.go 'userdashs'
          )
