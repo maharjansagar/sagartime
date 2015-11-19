@@ -36,7 +36,8 @@ md-content(layout='')
         td {{user.emails[0].address}}
         td
           a(href='/usermanages/{{user._id}}')  Edit 
-          button(ng-click='remove(user._id)') Remove
+          md-button.md-primary.md-raised(ng-click="showConfirm($event, user._id)", flex-md='100', flex-gt-md='auto') Remove
+         
           a(href='/adminresets/{{user._id}}') Change Password 
 
     //- ul
@@ -44,7 +45,14 @@ md-content(layout='')
     //-     p 
     //-       a(href='/usermanages/{{usermanage._id}}') {{ usermanage.name }}
     //-       button(ng-click='remove(usermanage)') &times;
+
+
     dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
 
     p Total number of user: {{usermanagesCount.count}}
+
+    div(ng-if='status')
+      br
+      b.md-padding(layout='row', layout-align='center center')
+        | {{status}}
   span(flex='')
