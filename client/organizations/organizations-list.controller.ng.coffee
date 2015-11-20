@@ -6,6 +6,7 @@ angular.module 'etimesApp'
   $scope.perPage = 3
   $scope.sort = {name : 1}
   $scope.orderProperty = '1'
+  $scope.status = ''
   
   $scope.organizations = $scope.$meteorCollection () ->
     Organizations.find {'deleted':0}, {sort:$scope.getReactively('sort')}
