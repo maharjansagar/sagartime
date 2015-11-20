@@ -4,6 +4,15 @@ md-content(layout='')
       span(flex='')
       div(layout='column')
         h1 Leaves Request Management
+
+        div(layout='row', layout-padding='')
+          md-input-container(flex='65')
+            label Search
+            input(type='search', ng-model='search', placeholder='Search')
+          md-select(ng-model='orderProperty', flex='35')
+            md-option(value='1') Ascending
+            md-option(value='-1') Descending
+
         table
           tr
             th S.N
@@ -15,15 +24,20 @@ md-content(layout='')
               a(href='#', ng-click="sortType = 'edate'; sortReverse = !sortReverse") To
             th
               a(href='#', ng-click="sortType = 'reason'; sortReverse = !sortReverse") Reason
-          tr(ng-repeat ='addleave in addleaves |  orderBy:sortType:sortReverse')
+          tr(dir-paginate ='addleave in addleaves | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='addleavesCount.count',  current-page='page')
             td {{$index + 1}}
             td
               | {{addleave.user}}
-            td {{addleave.sdate}}
-            td {{addleave.edate}}
+            td {{addleave.sdate | date:'yyyy/MM/dd'}}
+            td {{addleave.edate | date:'yyyy/MM/dd'}}
             td {{addleave.reason}}
             td 
-              button(ng-click='approve(addleave._id)')  Approve
-              button(ng-click='remove(addleave._id)') Remove
+              md-button.md-primary.md-raised(ng-click="approve($event, addleave._id)", flex-md='100', flex-gt-md='auto') Approve
+              md-button.md-primary.md-raised(ng-click="showConfirm($event, addleave._id)", flex-md='100', flex-gt-md='auto') Remove
+
+
+        dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
+
+        p Total number of addleaves: {{addleavesCount.count}}
 
       span(flex='')
