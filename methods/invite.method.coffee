@@ -5,6 +5,9 @@ Meteor.methods
     Meteor.users.update({_id: user},{$set:{'profile.0.deleted':'1'}})
     console.log('comes here')
 
+  etimesheetDelete:(etimesheetId) ->
+    Etimesheets.update(etimesheetId,{'deleted':1})
+
   projectDelete:(projectId) ->
     Projects.update(projectId,{$set:{'deleted':1}})
 
