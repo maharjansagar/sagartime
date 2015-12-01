@@ -1,8 +1,26 @@
-md-content(layout='')
-  toolbar
+div(layout='row')
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.sidebar(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('hide-gt-md')")
+      md-toolbar.md-tall.md-hue-2
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          <i class="fa fa-user fa-4"></i>
+          span
+          div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          div {{ $root.currentUser.emails[0].address }}    
+      md-list
+        a(href='/userdashs',class='fa fa-home fa-1') 
+            span Home
+          md-subheader User Dashboard
+            ul.admin-ul 
+              li 
+                a(href='/addleaves') Add Leave
+              li 
+                a(href='/etimesheets') Add Timesheet
+    .relative(layout='column', layout-fill='', role='main')
+      toolbar
 md-content(layout='row')
-  span(flex='')
-    div(layout='column' style='width:60%;height:400px;margin: 0 auto')
+    span(flex='')
+    div(layout='column', layout-align = 'center center')
       form.md-whiteframe-z1(ng-submit='save()', name='form', novalidate='', layout-padding='')
         h1(style='text-align:center') Add Leave 
         div(layout='row', layout-align='space-around center')
@@ -16,24 +34,37 @@ md-content(layout='row')
         input.md-button(type='submit', value='Submit')
       h1 Approved leaves
 
+      div(layout='row', layout-padding='')
+          md-input-container(flex='65')
+            label Search
+            input(type='search', ng-model='search', placeholder='Search')
+          md-select(ng-model='orderProperty', flex='35')
+            md-option(value='1') Ascending
+            md-option(value='-1') Descending
+
       table
         tr
           th S.N
           th
-            a(href='#', ng-click="sortType = 'email'; sortReverse = !sortReverse") Email
+            a(href='#', ng-click="sortType = 'reason'; sortReverse = !sortReverse") Reason
           th
             a(href='#', ng-click="sortType = 'sdate'; sortReverse = !sortReverse") From
           th
-            a(href='#', ng-click="sortType = 'edate'; sortReverse = !sortReverse") To
+            a(href='#', ng-click="sortType = 'edate'; sortReverse = !sortReverse") To          
           th
-            a(href='#', ng-click="sortType = 'reason'; sortReverse = !sortReverse") Reason
-        tr(ng-repeat ='addleave in addleaves |  orderBy:sortType:sortReverse')
+            a(href='#', ng-click="sortType = 'message'; sortReverse = !sortReverse") Message
+          th Operation
+        tr(dir-paginate ='addleave in addleaves | itemsPerPage: perPage |  orderBy:sortType:sortReverse | filter: reason', total-items='addleavesCount.count',  current-page='page')
           td {{$index + 1}}
-          td
-              | {{addleave.user}}
-          td {{addleave.sdate}}
-          td {{addleave.edate}}
           td {{addleave.reason}}
+          td {{addleave.sdate | date:'yyyy/MM/dd'}}
+          td {{addleave.edate | date:'yyyy/MM/dd'}}
+          td {{addleave.approved == 0 ? 'Not Approved' : 'Approved'}}
           td 
             button(ng-click='remove(addleave._id)') Remove
+
+      dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
+
+      p Total number of addleaves: {{addleavesCount.count}}
+    span(flex='')
           

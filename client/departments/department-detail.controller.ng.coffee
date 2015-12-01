@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'etimesApp'
-.controller 'DepartmentDetailCtrl', ($scope, $stateParams, $meteor, $state) ->
+.controller 'DepartmentDetailCtrl', ($scope, $stateParams, $meteor, $state, $mdSidenav) ->
   $scope.department = $scope.$meteorObject Departments, $stateParams.departmentId
   $scope.$meteorSubscribe('departments')
   

@@ -1,5 +1,73 @@
-md-content(layout='')
-  toolbar
+//- md-content(layout='row', md-component-id='left',  flex='')
+//-   toolbar(position: fixed)
+//- div(layout='row')
+//-    md-sidenav.md-sidenav-left.md-whiteframe-z2(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('gt-md')", style='position: fixed;height: 100%;top: 64px')
+//-         md-toolbar.md-tall.md-hue-2
+//-           span(flex='')
+//-           .md-toolbar-tools-bottom.inset(layout='column')
+//-             <i class="fa fa-user fa-4"></i>
+//-             span
+//-             div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+//-             div {{ $root.currentUser.emails[0].address }}
+//-         md-list
+//-           a(href='/admindashs',class='fa fa-home fa-1') 
+//-             span Home
+//-           md-subheader User Management
+//-             ul.admin-ul 
+//-               li 
+//-                 a(href='/usermanages') Manage Employees
+//-               li 
+//-                 a(href='/organizations') Manage Organizations
+//-               li 
+//-                 a(href='/viewleaves') Manage Leave Request
+//-               li 
+//-                 a(href='/progresses') Project Progress
+//-           md-divider
+//-           md-subheader List Data Management            
+//-           a
+//-             ul.admin-ul
+//-               li
+//-                 a(href='/departments') Manage Departments
+//-               li
+//-                 a(href='/designations') Manage Designations
+//-               li
+//-                 a(href='/projects') Manage Projects
+
+div(layout='row')
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.sidebar(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('hide-gt-md')")
+      md-toolbar.md-tall.md-hue-2
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          <i class="fa fa-user fa-4"></i>
+          span
+          div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          div {{ $root.currentUser.emails[0].address }}    
+      md-list
+        a(href='/admindashs',class='fa fa-home fa-1') 
+            span Home
+          md-subheader User Management
+            ul.admin-ul 
+              li 
+                a(href='/usermanages') Manage Employees
+              li 
+                a(href='/organizations') Manage Organizations
+              li 
+                a(href='/viewleaves') Manage Leave Request
+              li 
+                a(href='/progresses') Project Progress
+          md-divider
+          md-subheader List Data Management            
+          a
+            ul.admin-ul
+              li
+                a(href='/departments') Manage Departments
+              li
+                a(href='/designations') Manage Designations
+              li
+                a(href='/projects') Manage Projects
+    .relative(layout='column', layout-fill='', role='main')
+      toolbar
+
 .designations-list(layout='row')
   span(flex='')
   div(layout='column' flex='50')
@@ -28,20 +96,16 @@ md-content(layout='')
           a(href='#', ng-click="sortType = 'name'; sortReverse = !sortReverse") Name
         th
           a(href='#', ng-click="sortType = 'description'; sortReverse = !sortReverse") Description
+        th Operation
       tr(dir-paginate='designation in designations | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='designationsCount.count',  current-page='page')
         td {{$index + 1}}
         td {{designation.name}}
         td {{designation.description}}
         td
           a(href='/designations/{{designation._id}}')  Edit 
-          button(ng-click='remove(designation._id)') Remove    
-
-    //- ul
-    //-   li(dir-paginate='designation in designations | itemsPerPage: perPage', total-items='designationsCount.count',  current-page='page')
-    //-     p 
-    //-       a(href='/designations/{{designation._id}}') {{ designation.name }}
-    //-       button(ng-click='remove(designation)') &times;
+          button(ng-click='remove(designation._id)') Remove
     dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
 
     p Total number of designations: {{designationsCount.count}}
+
   span(flex='')

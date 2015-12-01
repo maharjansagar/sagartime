@@ -12,10 +12,10 @@ angular.module 'etimesApp'
   $scope.login = ()->
     $meteor.loginWithPassword($scope.credentials.email, $scope.credentials.password).then (->
       if($scope.currentUser.profile[0].role=="admin")
-        console.log('1')
         $state.go 'admindashs'
-      else
-        console.log('nepal')
+      else if($scope.currentUser.profile[0].isActive=='1' && $scope.currentUser.emails[0].verified==true && $scope.currentUser.profile[0].deleted=='0')
         $state.go 'userdashs'
+      else
+        $state.go 'not-verified'
     ), (err) ->
       $scope.error = 'Login error - ' + err

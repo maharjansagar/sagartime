@@ -1,10 +1,11 @@
-md-content(layout='row')
+md-content.login(layout='row')
       span(flex='')
       md-whiteframe(layout='column', flex='50')
         div(layout='row', layout-align='space-around center')
         .md-warn(ng-show='error')
           small {{ error }}
-        form(layout='column')
+        form.md-whiteframe-z1(layout='column', class='login-form register-form')
+          h1(style='text-align: center') Register
           div(layout='row', layout-align='space-around left')
             label Name
             md-input-container
@@ -35,6 +36,6 @@ md-content(layout='row')
               input(type='password', ng-model='password', placeholder='Enter Password', aria-label='password')
             md-input-container            
               input(type='password', ng-model='repassword', placeholder='Enter Password', aria-label='password')
-        div(layout='row', layout-align='space-around left')
-          md-button(ng-click='register()') Register
+          div(layout='row', layout-align='space-around left')
+            md-button(ng-click='register()') Register
       span(flex='')

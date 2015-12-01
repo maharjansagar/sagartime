@@ -1,5 +1,10 @@
 'use strict'
 
 angular.module 'etimesApp'
-.controller 'UserdashsCtrl', ($scope) ->
+.controller 'UserdashsCtrl', ($scope, $mdSidenav) ->
   $scope.viewName = 'Userdashs'
+
+  $scope.toggleSidenav = (menuId) ->
+    $mdSidenav(menuId).toggle()
+    return
+

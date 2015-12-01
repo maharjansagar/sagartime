@@ -1,7 +1,8 @@
 md-toolbar.toolbar(layout='row', layout-align='start center', layout-padding='')
   .navbar-left(layout='row', layout-align='center center')
+    md-button(ng-click="toggleSidenav('left')", aria-label='Menu')
+      ng-md-icon(class='fa fa-bars')
     a(href='/dashboard') E-Timesheet
   span(flex='')
-  .navbar-right(layout='row', layout-align='center center') 
-    div(ng-show='$root.currentUser ') {{ $root.currentUser.emails[0].address }}
+  .navbar-right(layout='row', layout-align='center center')
     md-button(ng-href='/logout', ng-show='$root.currentUser') Logout

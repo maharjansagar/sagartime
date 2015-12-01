@@ -12,7 +12,24 @@ Meteor.startup ->
             'address' : 'Gwarko'
             'deleted' : '1'
             'secondaryemail' : ''
+            'isActive' : '1'
             'role' : 'admin'
+            }]
+        stopActivationLink: true    
+    })
+
+    Accounts.createUser({
+        email:'shagarmaharjan@gmail.com'
+        password:'1234'
+        profile:[{
+            'fname' : 'Sagar'
+            'mname' : ''
+            'lname' : 'Maharjan'
+            'contact': '9849709623'
+            'address' : 'Gwarko'
+            'deleted' : '0'
+            'secondaryemail' : ''
+            'isActive' : '1'
             }]
         stopActivationLink: true    
     })

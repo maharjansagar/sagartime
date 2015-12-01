@@ -1,5 +1,37 @@
-md-content(layout='')
-  toolbar
+div(layout='row')
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.sidebar(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('hide-gt-md')")
+      md-toolbar.md-tall.md-hue-2
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          <i class="fa fa-user fa-4"></i>
+          span
+          div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          div {{ $root.currentUser.emails[0].address }}    
+      md-list
+        a(href='/admindashs',class='fa fa-home fa-1') 
+            span Home
+          md-subheader User Management
+            ul.admin-ul 
+              li 
+                a(href='/usermanages') Manage Employees
+              li 
+                a(href='/organizations') Manage Organizations
+              li 
+                a(href='/viewleaves') Manage Leave Request
+              li 
+                a(href='/progresses') Project Progress
+          md-divider
+          md-subheader List Data Management            
+          a
+            ul.admin-ul
+              li
+                a(href='/departments') Manage Departments
+              li
+                a(href='/designations') Manage Designations
+              li
+                a(href='/projects') Manage Projects
+    .relative(layout='column', layout-fill='', role='main')
+      toolbar
 .departments-list(layout='row')
   span(flex='')
   div(layout='column')
@@ -28,6 +60,7 @@ md-content(layout='')
           a(href='#', ng-click="sortType = 'dname'; sortReverse = !sortReverse") Name
         th
           a(href='#', ng-click="sortType = 'description'; sortReverse = !sortReverse") Description
+        th Operation
       tr(dir-paginate='department in departments | itemsPerPage: perPage | orderBy:sortType:sortReverse', total-items='departmentsCount.count',  current-page='page')
         td {{$index + 1}}
         td {{department.name}}
@@ -35,12 +68,6 @@ md-content(layout='')
         td
           a(href='/departments/{{department._id}}')  Edit 
           button(ng-click='remove(department._id)') Remove
-
-    //- ul
-    //-   li(dir-paginate='department in departments | itemsPerPage: perPage', total-items='departmentsCount.count',  current-page='page')
-    //-     p 
-    //-       a(href='/departments/{{department._id}}') {{ department.name }}
-    //-       button(ng-click='remove(department)') &times;
     dir-pagination-controls.md-accent(on-page-change='pageChanged(newPageNumber)')
 
     p Total number of departments: {{departmentsCount.count}}

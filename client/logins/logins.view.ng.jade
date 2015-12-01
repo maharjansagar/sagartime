@@ -1,17 +1,19 @@
-md-content(layout='row')
+md-content.login(layout='row')
       span(flex='')
       md-whiteframe(layout='column', flex='50')
+        h3(class='login-h3') Login
         div(layout='row', layout-align='space-around center')
         .md-warn(ng-show='error')
           small {{ error }}
-        form(layout='column')
+        form.md-whiteframe-z1(layout='column', class="login-form")
+          h1(style='text-align: center') E-Timesheet
           md-input-container
             label Email Address
             input(type='text', ng-model='credentials.email', placeholder='Enter Email', aria-label='email')
           md-input-container
             label Password
             input(type='password', ng-model='credentials.password', placeholder='Enter Password', aria-label='password')
-        div(layout='row', layout-align='space-around center')
-          md-button(ng-click='login()') Login
-          md-button(ng-href='registers') Register
+          div(layout='row', layout-align='space-around center')
+            md-button(ng-click='login()') Login
+            md-button(ng-href='registers', class='login-regis') Register
       span(flex='')

@@ -1,13 +1,18 @@
 'use strict'
 
 angular.module 'etimesApp'
-.controller 'ProgressesCtrl', ($scope, $meteor, $mdDialog, $mdToast) ->
+.controller 'ProgressesCtrl', ($scope, $meteor, $mdDialog, $mdToast, $mdSidenav) ->
   $scope.viewName = 'Progresses'
 
   $scope.page = 1
   $scope.perPage = 5
   $scope.sort = {user : 1}
   $scope.orderProperty = '1'
+
+  $scope.toggleSidenav = (menuId) ->
+    $mdSidenav(menuId).toggle()
+    return
+
 
   $scope.etimesheets=$scope.$meteorCollection () ->
    Etimesheets.find {'deleted':0}, {sort:$scope.getReactively('sort')} 

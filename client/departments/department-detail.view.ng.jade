@@ -1,9 +1,41 @@
-md-content(layout='')
-  toolbar
+div(layout='row')
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.sidebar(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('hide-gt-md')")
+      md-toolbar.md-tall.md-hue-2
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          <i class="fa fa-user fa-4"></i>
+          span
+          div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          div {{ $root.currentUser.emails[0].address }}    
+      md-list
+        a(href='/admindashs',class='fa fa-home fa-1') 
+            span Home
+          md-subheader User Management
+            ul.admin-ul 
+              li 
+                a(href='/usermanages') Manage Employees
+              li 
+                a(href='/organizations') Manage Organizations
+              li 
+                a(href='/viewleaves') Manage Leave Request
+              li 
+                a(href='/progresses') Project Progress
+          md-divider
+          md-subheader List Data Management            
+          a
+            ul.admin-ul
+              li
+                a(href='/departments') Manage Departments
+              li
+                a(href='/designations') Manage Designations
+              li
+                a(href='/projects') Manage Projects
+    .relative(layout='column', layout-fill='', role='main')
+      toolbar
 .department-detail(layout='row')
   span(flex='')
   div(layout='column')
-    h1 Here are the details of the department
+    h1 {{department.name}}
     form.md-whiteframe-z1(name='form', ng-submit='save()', layout-padding='')
       md-input-container
         label Name

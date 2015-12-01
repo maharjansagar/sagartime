@@ -3,5 +3,5 @@
 angular.module 'etimesApp'
 .config ($mdThemingProvider) ->
   $mdThemingProvider.theme('default')
-  .primaryPalette('deep-orange')
-  .accentPalette('lime')
+  .primaryPalette('blue')
+  .accentPalette('light-blue')

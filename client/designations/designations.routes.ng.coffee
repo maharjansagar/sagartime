@@ -27,4 +27,10 @@ angular.module 'etimesApp'
              return true;
            return 'UNAUTHORIZED'
          )
-      ]    
+      ] 
+
+  .state 'designation-display',
+    url: '/design'
+    templateUrl: 'client/designations/designation-display.view.html'
+    controller: 'DesignationDisplayCtrl'
+       

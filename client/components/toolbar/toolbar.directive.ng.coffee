@@ -5,4 +5,5 @@ angular.module 'etimesApp'
   restrict: 'AE'
   templateUrl: 'client/components/toolbar/toolbar.view.html'
   replace: true
+
  

@@ -26,4 +26,17 @@ angular.module 'etimesApp'
              return true;
            return 'UNAUTHORIZED'
          )
-      ]    
+      ]  
+
+  .state 'departments',
+    url: '/depart'
+    templateUrl: 'client/departments/departments.view.html'
+    controller: 'DepartmentsCtrl'
+    resolve:
+      currentUser: ['$meteor', ($meteor) ->
+        $meteor.requireValidUser((user)->
+          if(user.profile[0].role=="admin")
+             return true;
+           return 'UNAUTHORIZED'
+         )
+      ]   

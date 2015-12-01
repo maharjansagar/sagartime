@@ -1,9 +1,38 @@
-md-content(layout='')
-  toolbar
+div(layout='row')
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.sidebar(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('hide-gt-md')")
+      md-toolbar.md-tall.md-hue-2
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          <i class="fa fa-user fa-4"></i>
+          span
+          div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          div {{ $root.currentUser.emails[0].address }}    
+      md-list
+        a(href='/userdashs',class='fa fa-home fa-1') 
+            span Home
+          md-subheader User Dashboard
+            ul.admin-ul 
+              li 
+                a(href='/addleaves') Add Leave
+              li 
+                a(href='/etimesheets') Add Timesheet
+    .relative(layout='column', layout-fill='', role='main')
+      toolbar
 md-content(layout='row')
       span(flex='')
       md-whiteframe(layout='column', flex='50')
-        div(layout='column')
-          h1 User Dashboard
-          a(href='/addleaves') Add Leave
-          a(href='/etimesheets') Add Timesheet
+        div.udash(layout='column', style='margin-top: 60px')
+          h1 User Profile
+          label Name: 
+            span {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          label 
+            span Department: {{ $root.currentUser.profile[0].department}}
+          label 
+            span Designation: {{$root.currentUser.profile[0].designation}}
+          label 
+            span Email: {{$root.currentUser.emails[0].address}}
+          label
+            span Address: {{$root.currentUser.profile[0].address}}
+          label
+            span Contact: {{$root.currentUser.profile[0].mcontact}}
+          

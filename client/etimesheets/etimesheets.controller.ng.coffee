@@ -1,8 +1,13 @@
 'use strict'
 
 angular.module 'etimesApp'
-.controller 'EtimesheetsCtrl', ($scope, $meteor, $state, $rootScope) ->
+.controller 'EtimesheetsCtrl', ($scope, $meteor, $state, $rootScope, $mdSidenav) ->
   $scope.viewName = 'Etimesheets'
+
+  $scope.toggleSidenav = (menuId) ->
+    $mdSidenav(menuId).toggle()
+    return
+
 
   $scope.tables = []
   console.log($scope.tables)
@@ -31,10 +36,12 @@ angular.module 'etimesApp'
     $scope.pname=name
     console.log($scope.name)
 
+  $scope.addRow = () ->
+    $scope.tables.push({pname:$scope.newEtimesheet.name,ptime:$scope.newEtimesheet.time,pdetails:$scope.newEtimesheet.details,user:$rootScope.currentUser.emails[0].address,deleted:0,createdDate:new Date()})
+    $scope.newEtimesheet=undefined
    
   $scope.save = () ->
     $scope.newEtimesheet=$scope.tables
-    $scope.newEtimesheet.deleted=0
     $scope.etimesheets.save $scope.newEtimesheet
     $scope.newEtimesheet = undefined
     $scope.tables = undefined
@@ -45,6 +52,6 @@ angular.module 'etimesApp'
    $scope.set=(name)->
     $scope.pname=name
 
-  $scope.addRow = () ->
-    $scope.tables.push({pname:$scope.newEtimesheet.name,ptime:$scope.newEtimesheet.time,pdetails:$scope.newEtimesheet.details,user:$rootScope.currentUser.emails[0].address,deleted:$scope.newEtimesheet.deleted,createdDate:new Date()})
-    $scope.newEtimesheet=undefined
+  # $scope.addRow = () ->
+  #   $scope.tables.push({pname:$scope.newEtimesheet.name,ptime:$scope.newEtimesheet.time,pdetails:$scope.newEtimesheet.details,user:$rootScope.currentUser.emails[0].address,deleted:$scope.Etimesheet.deleted,createdDate:new Date()})
+  #   $scope.newEtimesheet=undefined

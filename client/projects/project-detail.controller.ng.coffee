@@ -1,12 +1,19 @@
 'use strict'
 
 angular.module 'etimesApp'
-.controller 'ProjectDetailCtrl', ($scope, $stateParams, $meteor) ->
+.controller 'ProjectDetailCtrl', ($scope, $stateParams, $meteor, $mdToast,$state, $mdSidenav) ->
+  
+  $scope.indexesindexesindexes = 0
+
+  $scope.toggleSidenav = (menuId) ->
+    $mdSidenav(menuId).toggle()
+    return
+
+
   $scope.project = $scope.$meteorObject Projects, $stateParams.projectId
   $scope.$meteorSubscribe('projects')
 
-  $scope.projects = $scope.$meteorCollection () ->
-    Projects.find {"deleted":0}, {sort:$scope.getReactively('sort')}
+  
   console.log($scope.projects)  
   $scope.project = $scope.$meteorObject Projects, $stateParams.projectId
 
@@ -14,15 +21,9 @@ angular.module 'etimesApp'
     Meteor.users.find {"profile.deleted":"0"}, {sort:$scope.getReactively('sort')}
   $meteor.autorun $scope, () ->
     $meteor.subscribe('users')
-  
-  
-  $meteor.autorun $scope, () ->
-    $scope.$meteorSubscribe('projects', {
-      limit: parseInt($scope.getReactively('perPage'))
-      skip: parseInt(($scope.getReactively('page') - 1) * $scope.getReactively('perPage'))
-      sort: $scope.getReactively('sort')
-    }, $scope.getReactively('search')).then () ->
-      $scope.projectsCount = $scope.$meteorObject Counts, 'numberOfProjects', false
+
+
+  $scope.member=$scope.project.member
    
 
   $meteor.session 'projectsCounter'
@@ -38,34 +39,34 @@ angular.module 'etimesApp'
     return list.indexOf(users) > -1
 
   $scope.toggle =  (users, list)->
-    $scope.idx = list.indexOf(users)
-    if($scope.idx > -1)
-     list.splice($scope.idx, 1)
+    $scope.indexes = list.indexOf(users)
+    if($scope.indexes> -1)
+     list.splice($scope.indexes, 1)
     else
      list.push(users)
     
+  # $scope.save = () ->
+  #   $scope.project.deleted=0
+  #   $scope.project.member=$scope.member
+  #   console.log($scope.member)
+  #   $scope.projects.save $scope.project
+  #   $scope.project = undefined
+  #   alert('Project Saved') 
+  #   document.getElementById("form").reset()
+  #   $scope.member=[]
+  #   $scope.indexes=0 
+
   $scope.save = () ->
-    $scope.newProject.deleted=0
-    $scope.newProject.isActive=1
-    $scope.newProject.member=$scope.member
-    console.log($scope.member)
-    $scope.projects.save $scope.newProject
-    $scope.newProject = undefined
-    alert('Project Saved') 
-    document.getElementById("form").reset()
-    $scope.member=[]
-    $scope.idx=0 
+    if $scope.form.$valid
+      $scope.project.save().then(
+        (numberOfDocs) ->
+          console.log 'save successful, docs affected ', numberOfDocs
+          $mdToast.show($mdToast.simple().content('Save Sucessfully').position('top', 'left').hideDelay(2000))
+          $state.go 'projects-list'
+        (error) ->
+          console.log 'save error ', error
+      )
   
 
   $scope.remove = (projectId) ->
     Meteor.call('projectDelete', projectId)
-    
-  $scope.pageChanged = (newPage) ->
-    $scope.page = newPage
-    
-  $scope.$watch 'orderProperty', () ->
-    if $scope.orderProperty
-      $scope.sort = name_sort: parseInt($scope.orderProperty)
-
-  $scope.update=(project)->
-    $scope.projects.update project

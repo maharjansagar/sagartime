@@ -5,5 +5,6 @@ Meteor.publish 'etimesheets', (options, searchString) ->
     'user':
       '$regex': '.*' + (searchString or '') + '.*'
       '$options': 'i'
-  Counts.publish this, 'numberOfEtimesheets', Etimesheets.find(where), noReady: true
+    'deleted' : 0
+  Counts.publish this, 'numberOfEtimesheets', Etimesheets.find({deleted: 0}), noReady: true
   Etimesheets.find where, options

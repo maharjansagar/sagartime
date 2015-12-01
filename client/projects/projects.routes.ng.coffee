@@ -5,7 +5,7 @@ angular.module 'etimesApp'
   $stateProvider
   .state 'projects-list',
     url: '/projects'
-    templateUrl: '\client/projects/projects-list.view.html'
+    templateUrl: 'client/projects/projects-list.view.html'
     controller: 'ProjectsListCtrl'
     resolve:
       currentUser: ['$meteor', ($meteor) ->
@@ -18,7 +18,7 @@ angular.module 'etimesApp'
 
   .state 'project-detail',
     url: '/projects/:projectId'
-    templateUrl: '\client/projects/project-detail.view.html'
+    templateUrl: 'client/projects/project-detail.view.html'
     controller: 'ProjectDetailCtrl'
     resolve:
       currentUser: ['$meteor', ($meteor) ->

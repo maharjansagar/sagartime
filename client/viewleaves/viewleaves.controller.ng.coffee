@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'etimesApp'
-.controller 'ViewleavesCtrl', ($scope, $meteor, $mdToast, $mdDialog) ->
+.controller 'ViewleavesCtrl', ($scope, $meteor, $mdToast, $mdDialog, $mdSidenav) ->
   $scope.viewName = 'Viewleaves'
 
   $scope.page = 1
@@ -9,8 +9,15 @@ angular.module 'etimesApp'
   $scope.sort = {user : 1}
   $scope.orderProperty = '1'
 
+  $scope.button = 'Not Approve'
+
+  $scope.toggleSidenav = (menuId) ->
+    $mdSidenav(menuId).toggle()
+    return
+
+  
   $scope.addleaves = $scope.$meteorCollection () ->
-    Addleaves.find { $and: [{'approved': 0}, {'deleted':0}]}, {sort:$scope.getReactively('sort')} 
+    Addleaves.find {'deleted': 0}, {sort:$scope.getReactively('sort')}
   $meteor.autorun $scope, () ->
     $scope.$meteorSubscribe('addleaves', {
       limit: parseInt($scope.getReactively('perPage'))
@@ -19,8 +26,13 @@ angular.module 'etimesApp'
     }, $scope.getReactively('search')).then () ->
       $scope.addleavesCount = $scope.$meteorObject Counts, 'numberOfAddleaves', false
 
-  $scope.approve = (addleaveId) ->
-    Meteor.call('addleaveApprove',addleaveId)
+  $scope.sagar = (sagar)->
+    if (sagar == 1)
+      $scope.button = 'Approved'
+      console.log('come here')
+    else
+      $scope.button = 'Not Approve'
+      console.log('fuck you')
 
   $scope.showConfirm = (ev, addleaveId) ->
     # Appending dialog to document.body to cover sidenav in docs app
@@ -35,7 +47,18 @@ angular.module 'etimesApp'
       return
     return
 
-  $scope.approve = (ev, addleaveId) ->
+  # $scope.emp=$scope.$meteorCollection () ->
+  #     Addleaves.find {'_id':userId}
+  #   console.log($scope.emp[0].del)
+  #   if($scope.emp[0].isActive==1)
+  #     $mdToast.show($mdToast.simple().content('This user is already verified'))
+  #   else
+  #     Meteor.call('update11',userId)
+  #     Meteor.call('update12',useradd)
+  #    # Meteor.call('update13',useradd)
+  #     $mdToast.show($mdToast.simple().content('user verified Sucessfully'))
+
+  $scope.approve = (ev, addleaveId) ->   
     # Appending dialog to document.body to cover sidenav in docs app
     confirm = $mdDialog.confirm().title('Would you like to approve this leave request?').content('Are you sure you want to approve this leave request?').ariaLabel('Lucky day').targetEvent(ev).ok('Yes').cancel('No')
     $mdDialog.show(confirm).then ( ->
@@ -47,9 +70,6 @@ angular.module 'etimesApp'
       $scope.status = 'You decided to keep your debt.'
       return
     return
-
-  Template.registerHelper 'formatDate', (date) ->
-    moment(date).format 'MM-DD-YYYY'
 
   $scope.pageChanged = (newPage) ->
     $scope.page = newPage

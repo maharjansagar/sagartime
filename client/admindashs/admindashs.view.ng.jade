@@ -1,18 +1,36 @@
-md-content(layout='')
-  toolbar
-md-content(layout='row')
-      span(flex='')
-      md-whiteframe(layout='column', flex='50')
-        h1 Admin Dashboards
-        div(layout='column')
-          h2 User Management
-          a(href='/usermanages') Manage Employees
-          a(href='/organizations') Manage Organizations
-          a(href='/viewleaves') Manage Leave Request
-          a(href='/progresses') Project Progress
-        div(layout='column')
-          h2 List Data Management
-          a(href='/departments') Manage Departments
-          a(href='/designations') Manage Designations
-          a(href='/projects') Manage Projects
-      span(flex='')
+div(layout='row')
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.sidebar(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('hide-gt-md')")
+      md-toolbar.md-tall.md-hue-2
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          <i class="fa fa-user fa-4"></i>
+          span
+          div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          div {{ $root.currentUser.emails[0].address }}    
+      md-list
+        a(href='/admindashs',class='fa fa-home fa-1') 
+            span Home
+          md-subheader User Management
+            ul.admin-ul 
+              li 
+                a(href='/usermanages') Manage Employees
+              li 
+                a(href='/organizations') Manage Organizations
+              li 
+                a(href='/viewleaves') Manage Leave Request
+              li 
+                a(href='/progresses') Project Progress
+          md-divider
+          md-subheader List Data Management            
+          a
+            ul.admin-ul
+              li
+                a(href='/departments') Manage Departments
+              li
+                a(href='/designations') Manage Designations
+              li
+                a(href='/projects') Manage Projects
+    .relative(layout='column', layout-fill='', role='main')
+      toolbar
+      md-button.md-fab.md-fab-bottom-right(aria-label='Add', ng-click='showAdd($event)')
+        ng-md-icon(class='fa fa-plus')

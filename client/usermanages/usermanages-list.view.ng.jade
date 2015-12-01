@@ -1,5 +1,37 @@
-md-content(layout='')
-  toolbar
+div(layout='row')
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.sidebar(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('hide-gt-md')")
+      md-toolbar.md-tall.md-hue-2
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          <i class="fa fa-user fa-4"></i>
+          span
+          div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          div {{ $root.currentUser.emails[0].address }}    
+      md-list
+        a(href='/admindashs',class='fa fa-home fa-1') 
+            span Home
+          md-subheader User Management
+            ul.admin-ul 
+              li 
+                a(href='/usermanages') Manage Employees
+              li 
+                a(href='/organizations') Manage Organizations
+              li 
+                a(href='/viewleaves') Manage Leave Request
+              li 
+                a(href='/progresses') Project Progress
+          md-divider
+          md-subheader List Data Management            
+          a
+            ul.admin-ul
+              li
+                a(href='/departments') Manage Departments
+              li
+                a(href='/designations') Manage Designations
+              li
+                a(href='/projects') Manage Projects
+    .relative(layout='column', layout-fill='', role='main')
+      toolbar
 .usermanages-list(layout='row')
   span(flex='')
   div(layout='column')
@@ -28,6 +60,7 @@ md-content(layout='')
           a(href='#', ng-click="sortType = 'contact'; sortReverse = !sortReverse") Contact
         th
           a(href='#', ng-click="sortType = 'mail'; sortReverse = !sortReverse") Email Address
+        th Operation
       tr(dir-paginate='user in users | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='usermanagesCount.count',  current-page='page')
         td {{$index + 1}}
         td
@@ -37,10 +70,10 @@ md-content(layout='')
         td
           a(href='/usermanages/{{user._id}}')  Edit 
           md-button.md-primary.md-raised(ng-click="showConfirm($event, user._id)", flex-md='100', flex-gt-md='auto') Remove
-         
+          md-button.md-primary.md-raised(ng-click="activate($event, user._id)", flex-md='100', flex-gt-md='auto') {{user.profile[0].isActive==0 ? 'Not Active' : 'Activated'}}
           a(href='/adminresets/{{user._id}}') Change Password 
 
-    //- ul
+    //- ul{{addleave.approved == 0 ? 'Not Approved' : 'Approved'}}
     //-   li(dir-paginate='usermanage in usermanages | itemsPerPage: perPage', total-items='usermanagesCount.count',  current-page='page')
     //-     p 
     //-       a(href='/usermanages/{{usermanage._id}}') {{ usermanage.name }}

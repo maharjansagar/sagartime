@@ -5,6 +5,12 @@ Meteor.methods
     Meteor.users.update({_id: user},{$set:{'profile.0.deleted':'1'}})
     console.log('comes here')
 
+  active: (user) ->
+    Meteor.users.update({_id:user},{$set:{'profile.0.isActive': '1'}})
+
+  deactive: (user) ->
+    Meteor.users.update({_id:user},{$set:{'profile.0.isActive': '0'}})    
+
   etimesheetDelete:(etimesheetId) ->
     Etimesheets.update(etimesheetId,{'deleted':1})
 
@@ -29,9 +35,15 @@ Meteor.methods
   addleaveDelete: (addleaveId) ->
     Addleaves.update(addleaveId,{$set:('deleted': 1)}) 
 
-  update:(user,email,fname,mname,lname,mcontact) ->
+  usercreate:(em,ps,pr)->
+    uid=Accounts.createUser(email:em,password:ps,profile:pr)
+    Accounts.sendVerificationEmail(uid,em)
+    
+  update:(user,email,fname,mname,lname,mcontact,department,designation) ->
     Meteor.users.update({ _id: user },{$set:{"emails.0.address":email}})
     Meteor.users.update({ _id: user },{$set:{"profile.0.fname":fname}})
     Meteor.users.update({ _id: user },{$set:{"profile.0.mname":mname}})
     Meteor.users.update({ _id: user },{$set:{"profile.0.lname":lname}})
     Meteor.users.update({ _id: user },{$set:{"profile.0.mcontact":mcontact}})
+    Meteor.users.update({ _id: user },{$set:{"profile.0.department":department}})
+    Meteor.users.update({ _id: user },{$set:{"profile.0.designation":designation}})

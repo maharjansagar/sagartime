@@ -14,4 +14,4 @@ angular.module 'etimesApp'
   .state 'verified',
     url:  '/verify-email/:token'
     templateUrl: 'client/registers/verified.view.html'
-    controller: 'NotverifiedCtrl'
+    controller: 'VerifiedCtrl'

@@ -1,5 +1,37 @@
-md-content(layout='')
-  toolbar
+div(layout='row')
+  md-sidenav.md-sidenav-left.md-whiteframe-z2.sidebar(layout='column', md-component-id='left', md-is-locked-open="$mdMedia('hide-gt-md')")
+      md-toolbar.md-tall.md-hue-2
+        span(flex='')
+        .md-toolbar-tools-bottom.inset(layout='column')
+          <i class="fa fa-user fa-4"></i>
+          span
+          div {{ $root.currentUser.profile[0].fname}} {{$root.currentUser.profile[0].lname}}
+          div {{ $root.currentUser.emails[0].address }}    
+      md-list
+        a(href='/admindashs',class='fa fa-home fa-1') 
+            span Home
+          md-subheader User Management
+            ul.admin-ul 
+              li 
+                a(href='/usermanages') Manage Employees
+              li 
+                a(href='/organizations') Manage Organizations
+              li 
+                a(href='/viewleaves') Manage Leave Request
+              li 
+                a(href='/progresses') Project Progress
+          md-divider
+          md-subheader List Data Management            
+          a
+            ul.admin-ul
+              li
+                a(href='/departments') Manage Departments
+              li
+                a(href='/designations') Manage Designations
+              li
+                a(href='/projects') Manage Projects
+    .relative(layout='column', layout-fill='', role='main')
+      toolbar
 .viewleaves(layout='row')
       span(flex='')
       div(layout='column')
@@ -24,6 +56,7 @@ md-content(layout='')
               a(href='#', ng-click="sortType = 'edate'; sortReverse = !sortReverse") To
             th
               a(href='#', ng-click="sortType = 'reason'; sortReverse = !sortReverse") Reason
+            th Operation
           tr(dir-paginate ='addleave in addleaves | itemsPerPage: perPage |  orderBy:sortType:sortReverse', total-items='addleavesCount.count',  current-page='page')
             td {{$index + 1}}
             td
@@ -32,7 +65,7 @@ md-content(layout='')
             td {{addleave.edate | date:'yyyy/MM/dd'}}
             td {{addleave.reason}}
             td 
-              md-button.md-primary.md-raised(ng-click="approve($event, addleave._id)", flex-md='100', flex-gt-md='auto') Approve
+              md-button.md-primary.md-raised(ng-click="approve($event, addleave._id)", flex-md='100', flex-gt-md='auto', ng-value='sagar(addleave.approved)') {{button}}
               md-button.md-primary.md-raised(ng-click="showConfirm($event, addleave._id)", flex-md='100', flex-gt-md='auto') Remove
 
 

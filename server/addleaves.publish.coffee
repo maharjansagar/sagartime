@@ -5,5 +5,6 @@ Meteor.publish 'addleaves', (options, searchString) ->
     'user':
       '$regex': '.*' + (searchString or '') + '.*'
       '$options': 'i'
-  Counts.publish this, 'numberOfAddleaves', Addleaves.find(where), noReady: true
+    'deleted' : 0
+  Counts.publish this, 'numberOfAddleaves', Addleaves.find({'deleted':0}), noReady: true
   Addleaves.find where, options

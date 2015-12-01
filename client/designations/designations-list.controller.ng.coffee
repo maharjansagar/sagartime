@@ -1,12 +1,17 @@
 'use strict'
 
 angular.module 'etimesApp'
-.controller 'DesignationsListCtrl', ($scope, $meteor) ->
+.controller 'DesignationsListCtrl', ($scope, $meteor, $mdSidenav) ->
   $scope.deleted=0
   $scope.page = 1
   $scope.perPage = 3
   $scope.sort = {name : 1}
   $scope.orderProperty = '1'
+
+  $scope.toggleSidenav = (menuId) ->
+    $mdSidenav(menuId).toggle()
+    return
+
   
   $scope.designations = $scope.$meteorCollection () ->
     Designations.find {'deleted':0}, {sort:$scope.getReactively('sort')}

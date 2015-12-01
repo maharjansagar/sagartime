@@ -1,8 +1,13 @@
 'use strict'
 
 angular.module 'etimesApp'
-.controller 'ProjectsListCtrl', ($scope, $meteor, $state) ->
+.controller 'ProjectsListCtrl', ($scope, $meteor, $state, $mdSidenav) ->
   $scope.member=[] 
+
+  $scope.toggleSidenav = (menuId) ->
+    $mdSidenav(menuId).toggle()
+    return
+
 
   $scope.page = 1
   $scope.perPage = 3
@@ -32,7 +37,7 @@ angular.module 'etimesApp'
     else
       return false
 
-  $scope.exist = (users, list) ->
+  $scope.exists = (users, list) ->
     return list.indexOf(users) > -1
 
   $scope.toggle = (users, list) ->
@@ -43,14 +48,13 @@ angular.module 'etimesApp'
       list.push(users)
     
   $scope.save = () ->
-    if $scope.form.$valid
-      $scope.newProject.deleted=0
-      $scope.newProject.member=$scope.member
-      $scope.projects.save $scope.newProject
-      $scope.newProject = undefined
-      document.getElementById('form').reset()
-      $scope.member=[]
-      $scope.idx=0
+    $scope.newProject.deleted=0
+    $scope.newProject.member=$scope.member
+    $scope.projects.save $scope.newProject
+    $scope.newProject = undefined
+    document.getElementById('form').reset()
+    $scope.member=[]
+    $scope.indexes=0
       
   $scope.remove = (projectId) ->
     Meteor.call('projectDelete',projectId)

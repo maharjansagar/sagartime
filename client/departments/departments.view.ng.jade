@@ -1,0 +1,11 @@
+.departments(layout='row')
+  span(flex='')
+  div(layout='column')
+    table
+      tr
+        th Name
+        th Department
+      tr(ng-repeat='user in users', ng-if='users.profile[0].department == departments.name')
+        td {{user.profile[0].fname}}
+        td {{user.profile[0].department}}
+  span(flex='')  
